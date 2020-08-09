@@ -79,11 +79,11 @@ network_dict = {}  # CAM name: [network data]
 for name in names:
     df_blocks = pd.read_csv(os.getcwd()+'/'+name+'_blocks.csv')
     df_links = pd.read_csv(os.getcwd()+'/'+name+'_links.csv')
-    density = calc_density(df_blocks, df_links)
-    network_dict[name] = [density]
+    density, diameter, triadic_closure, central_node, central_node_val = calc_density(df_blocks, df_links)
+    network_dict[name] = [density, diameter, triadic_closure, central_node, central_node_val]
 
 df_network = pd.DataFrame.from_dict(network_dict, orient='index',
-                                  columns=['Density'])
+                                  columns=['Density', 'Diameter', 'Triadic Closure', 'Central Node', 'Central Node Value'])
 
 df = pd.concat([df, df_network], axis=1)
 

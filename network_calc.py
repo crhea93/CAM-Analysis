@@ -12,5 +12,25 @@ def calc_density(df_blocks, df_links):
     G = nx.Graph()
     G.add_nodes_from(nodes)
     G.add_edges_from(edges)
+    # Calculate Density
     density = np.round(nx.density(G), 3)
-    return density
+    # Calculate longest path
+    try:
+        components = nx.connected_components(G)
+        largest_component = max(components, key=len)
+        subgraph = G.subgraph(largest_component)
+        diameter = nx.diameter(subgraph)
+    except:
+        diameter = 0
+    # Calculate transitivity
+    triadic_closure = np.round(nx.transitivity(G), 3)
+    # Calculate max degree
+    try:
+        degree_centrality = nx.degree_centrality(G)
+        max_centrality_ind = np.argmax(degree_centrality.items())
+        central_node = np.round(list(degree_centrality.keys())[max_centrality_ind], 3)
+        central_node_val = np.round(list(degree_centrality.values())[max_centrality_ind], 3)
+    except:
+        central_node = 0
+        central_node_val = 0
+    return density, diameter, triadic_closure, central_node, central_node_val
