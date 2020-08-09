@@ -7,35 +7,14 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 from network_calc import *
+from AdditionalFunctions import *
 import networkx as nx
 # ----------------------------------------------------------------------------------#
 home_dir = '/home/carterrhea/Desktop/LisaCAMs'
 output_dir = '/home/carterrhea/Desktop/LisaCAMs/Output/'
 # ----------------------------------------------------------------------------------#
 
-def valenceCalc(dataframe):
-    valence_avg = 0
-    if len(dataframe['shape']) > 0:  # If there are any concepts!!
-        for valence in dataframe['shape']:
-            if valence == 'neutral':
-                valence_avg += 0
-            elif 'positive' in valence:
-                if 'weak' in valence:
-                    valence_avg += 1
-                elif valence == 'positive':
-                    valence_avg += 2
-                elif 'strong' in valence:
-                    valence_avg += 3
-            elif 'negative' in valence:
-                if 'weak' in valence:
-                    valence_avg -= 1
-                elif valence == 'negative':
-                    valence_avg -= 2
-                elif 'strong' in valence:
-                    valence_avg -= 3
-        return np.round(valence_avg/len(dataframe['shape']),2)
-    else:
-        return 0
+
 
 CAMS_block = {}  # User ID : blocks
 CAMS_link = {}  # User ID: links
