@@ -27,8 +27,9 @@ def calc_density(df_blocks, df_links):
     # Calculate max degree
     try:
         degree_centrality = nx.degree_centrality(G)
-        max_centrality_ind = np.argmax(degree_centrality.items())
-        central_node = np.round(list(degree_centrality.keys())[max_centrality_ind], 3)
+        max_centrality_ind = np.argmax(list(degree_centrality.values()))
+        print(max_centrality_ind)
+        central_node = list(degree_centrality.keys())[max_centrality_ind]
         central_node_val = np.round(list(degree_centrality.values())[max_centrality_ind], 3)
     except:
         central_node = 0
