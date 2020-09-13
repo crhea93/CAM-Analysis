@@ -28,10 +28,11 @@ def calc_density(df_blocks, df_links):
     try:
         degree_centrality = nx.degree_centrality(G)
         max_centrality_ind = np.argmax(list(degree_centrality.values()))
-        print(max_centrality_ind)
         central_node = list(degree_centrality.keys())[max_centrality_ind]
+        central_node_title = df_blocks[df_blocks['id'] == central_node]['title'].values[0]
         central_node_val = np.round(list(degree_centrality.values())[max_centrality_ind], 3)
     except:
         central_node = 0
+        central_node_title = ''
         central_node_val = 0
-    return density, diameter, triadic_closure, central_node, central_node_val
+    return density, diameter, triadic_closure, central_node, central_node_title, central_node_val
