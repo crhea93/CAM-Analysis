@@ -6,6 +6,10 @@ def shapes(image, shape_name, x_pos, y_pos, width, height, title, scale):
     """
     Convert shape name from pandas file to shape to be used in cv2
     """
+    try:  # If title is nan
+        temp = len(title)
+    except:
+        title = ''
     start_point = (int(scale*x_pos), int(scale*(y_pos+height)))  # Top left
     end_point = (int(scale*(x_pos+width)), int(scale*y_pos))  # Bottom right
     if 'negative' in shape_name:

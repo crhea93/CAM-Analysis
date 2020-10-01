@@ -35,4 +35,18 @@ def calc_density(df_blocks, df_links):
         central_node = 0
         central_node_title = ''
         central_node_val = 0
-    return density, diameter, triadic_closure, central_node, central_node_title, central_node_val
+    # Eigenvector Centrality
+    try:
+        eigenvector_centrality = nx.eigenvector_centrality(G)
+        max_centrality_ind = np.argmax(list(eigenvector_centrality.values()))
+        central_node_val_eig = np.round(list(eigenvector_centrality.values())[max_centrality_ind], 3)
+    except:
+        central_node_val_eig = 0
+    # Betweeness Centrality
+    try:
+        betweenness_centrality = nx.betweenness_centrality(G)
+        max_centrality_ind = np.argmax(list(betweenness_centrality.values()))
+        central_node_val_bet = np.round(list(betweenness_centrality.values())[max_centrality_ind], 3)
+    except:
+        central_node_val_bet = 0
+    return density, diameter, triadic_closure, central_node, central_node_title, central_node_val, central_node_val_eig, central_node_val_bet

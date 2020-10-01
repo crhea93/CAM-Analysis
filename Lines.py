@@ -93,8 +93,8 @@ def lines(image, starting_block, ending_block, line_style, arrow_type, scale):
             for it in range(int(length/2)):
                 if it%8 == 0:
                     if x_end > x_start and y_start > y_end:
-                        starting_point_new = tuple(map(operator.add,starting_point,(it*k*np.cos(angle)-scale*np.cos(angle)*float(ending_block['width']), it*k*np.sin(angle)-np.sin(angle)*0.5*scale*float(ending_block['height']))))
-                        ending_point_new = tuple(map(operator.add,starting_point,((it+1)*k*np.cos(angle)-scale*np.cos(angle)*float(ending_block['width']), (it+1)*k*np.sin(angle)-np.sin(angle)*0.5*scale*float(ending_block['height']))))
+                        starting_point_new = tuple(map(operator.add,starting_point,(it*k*np.cos(angle)-scale*np.cos(angle)*float(ending_block['width']), it*k*np.sin(angle)-np.sin(angle)*1.5*scale*float(ending_block['height']))))
+                        ending_point_new = tuple(map(operator.add,starting_point,((it+1)*k*np.cos(angle)-scale*np.cos(angle)*float(ending_block['width']), (it+1)*k*np.sin(angle)-np.sin(angle)*1.5*scale*float(ending_block['height']))))
                         starting_point_new = tuple(int(i) for i in starting_point_new)
                         ending_point_new = tuple(int(i) for i in ending_point_new)
                         image = cv.line(image, starting_point_new, ending_point_new, color, thickness)
@@ -119,12 +119,12 @@ def lines(image, starting_block, ending_block, line_style, arrow_type, scale):
             # Add final arrow
             if x_end > x_start and y_start > y_end:
                 # Need for dash!
-                it = length/2
-                starting_point_new = tuple(map(operator.add,starting_point,(it*k*np.cos(angle)-scale*np.cos(angle)*float(ending_block['width']), it*k*np.sin(angle)-np.sin(angle)*0.5*scale*float(ending_block['height']))))
-                ending_point_new = tuple(map(operator.add,starting_point,((it+1)*k*np.cos(angle)-scale*np.cos(angle)*float(ending_block['width']), (it+1)*k*np.sin(angle)-np.sin(angle)*0.5*scale*float(ending_block['height']))))
+                it = 0
+                starting_point_new = tuple(map(operator.add,starting_point,(it*k*np.cos(angle)-scale*np.cos(angle)*float(ending_block['width']), it*k*np.sin(angle)-np.sin(angle)*1.5*scale*float(ending_block['height']))))
+                ending_point_new = tuple(map(operator.add,starting_point,((it+1)*k*np.cos(angle)-scale*np.cos(angle)*float(ending_block['width']), (it+1)*k*np.sin(angle)-np.sin(angle)*1.5*scale*float(ending_block['height']))))
                 starting_point_new = tuple(int(i) for i in starting_point_new)
                 ending_point_new = tuple(int(i) for i in ending_point_new)
-                image = cv.arrowedLine(image, starting_point_new, ending_point_new, color, thickness, tipLength=thickness)
+                image = cv.arrowedLine(image, ending_point_new, starting_point_new, color, thickness, tipLength=thickness)
             elif x_end > x_start and y_start < y_end:
                 # Need for dash!
                 it = 0
