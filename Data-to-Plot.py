@@ -12,8 +12,8 @@ import os
 def data_to_plot(id):
     scale = 5
     # Read in data to pandas
-    blocks = pd.read_csv('/home/carterrhea/Documents/CAM-proj/'+id+'_blocks.csv')
-    links = pd.read_csv('/home/carterrhea/Documents/CAM-proj/'+id+'_links.csv')
+    blocks = pd.read_csv('/home/carterrhea/Documents/CAM-proj/Clean/'+id+'_blocks.csv')
+    links = pd.read_csv('/home/carterrhea/Documents/CAM-proj/Clean/'+id+'_links.csv')
     if blocks.isnull().values.any():
         # Create Background
         x_size = int(blocks['y_pos'].max())
@@ -21,22 +21,10 @@ def data_to_plot(id):
         image = np.zeros((int(1.3*scale*x_size), int(1.3*scale*y_size), 3), np.uint8)
         image.fill(255)  # Make white background
         # Step through each line
-        lines_existing = []  # (starting_block, ending_block)
-        lines_timing = []  # {link_id: time_stamp}
         for index, row in links.iterrows():
             starting_block = blocks[blocks['id'] == row['ending_block']]
             ending_block = blocks[blocks['id'] == row['starting_block']]
-            if (starting_block, ending_block) in lines_existing:
-                # Check to see if the time is newer than the current
-                if row['timestamp'] > lines_timing[index]:
-                    image = lines(image, starting_block, ending_block, row['line_style'], row['arrow_type'], scale)
-                    lines_timing[index] = row['timestamp']
-                else:
-                    pass
-            else:
-                image = lines(image, starting_block, ending_block, row['line_style'], row['arrow_type'], scale)
-                lines_timing[index] = row['timestamp']
-                lines_existing.append((starting_block, ending_block))
+            image = lines(image, starting_block, ending_block, row['line_style'], row['arrow_type'], scale)
         # Step through each block
         for index, row in blocks.iterrows():
             image = shapes(image, row['shape'], row['x_pos'], row['y_pos'], row['width'], row['height'], row['title'], scale)
@@ -52,7 +40,7 @@ def data_to_plot(id):
         cv.imwrite('/home/carterrhea/Desktop/Plots/CAM_'+id+'.png', image)
 
 
-for filename in os.listdir('/home/carterrhea/Documents/CAM-proj'):  # Step through files
+for filename in os.listdir('/home/carterrhea/Documents/CAM-proj/Clean'):  # Step through files
     if filename.endswith('_blocks.csv'):
         cam_name = filename.split("_")[0]+'_'+filename.split("_")[1]
         try:

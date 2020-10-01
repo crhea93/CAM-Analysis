@@ -10,7 +10,7 @@ from network_calc import *
 from AdditionalFunctions import *
 import networkx as nx
 # ----------------------------------------------------------------------------------#
-home_dir = '/home/carterrhea/Documents/CAM-proj'
+home_dir = '/home/carterrhea/Documents/CAM-proj/Clean'
 output_dir = '/home/carterrhea/Documents/CAM-proj/Output/'
 # ----------------------------------------------------------------------------------#
 
@@ -62,7 +62,7 @@ network_dict = {}  # CAM name: [network data]
 for name,cam_name in zip(names,cam_names):
     df_blocks = pd.read_csv(os.getcwd()+'/'+cam_name+'_blocks.csv')
     df_links = pd.read_csv(os.getcwd()+'/'+cam_name+'_links.csv')
-    density, diameter, triadic_closure, central_node, central_node_title, central_node_val = calc_density(df_blocks, df_links)
+    density, diameter, triadic_closure, central_node, central_node_title, central_node_val,central_node_val_eig, central_node_val_bet = calc_density(df_blocks, df_links)
     network_dict[name] = [density, diameter, triadic_closure, central_node, central_node_title, central_node_val]
 
 df_network = pd.DataFrame.from_dict(network_dict, orient='index',
