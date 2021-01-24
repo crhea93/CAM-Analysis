@@ -2,6 +2,15 @@ import networkx as nx
 import numpy as np
 
 def calc_density(df_blocks, df_links):
+    """
+    Calculate CAM's network parameters using networkx:
+        density, diameter, degree centrality, node with highest degree centrality, triadic closure, eigenvector centrality,
+        betweeness centrality
+
+    :param df_blocks: Pandas dataframe containing CAM's block information
+    :param df_links:  Pandas dataframe containing CAM's link information
+    :return: density, diameter, triadic_closure, central_node, central_node_title, central_node_val, central_node_valence, central_node_val_eig, central_node_val_bet
+    """
     # Get nodes
     nodes = df_blocks['id'].to_list()
     # Get edges
@@ -30,11 +39,13 @@ def calc_density(df_blocks, df_links):
         max_centrality_ind = np.argmax(list(degree_centrality.values()))
         central_node = list(degree_centrality.keys())[max_centrality_ind]
         central_node_title = df_blocks[df_blocks['id'] == central_node]['title'].values[0]
+        central_node_valence = df_blocks[df_blocks['id'] == central_node]['shape'].values[0]
         central_node_val = np.round(list(degree_centrality.values())[max_centrality_ind], 3)
     except:
         central_node = 0
         central_node_title = ''
         central_node_val = 0
+        central_node_valence = ''
     # Eigenvector Centrality
     try:
         eigenvector_centrality = nx.eigenvector_centrality(G)
@@ -49,4 +60,4 @@ def calc_density(df_blocks, df_links):
         central_node_val_bet = np.round(list(betweenness_centrality.values())[max_centrality_ind], 3)
     except:
         central_node_val_bet = 0
-    return density, diameter, triadic_closure, central_node, central_node_title, central_node_val, central_node_val_eig, central_node_val_bet
+    return density, diameter, triadic_closure, central_node, central_node_title, central_node_val, central_node_valence, central_node_val_eig, central_node_val_bet

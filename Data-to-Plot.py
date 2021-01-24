@@ -12,8 +12,8 @@ import os
 def data_to_plot(id):
     scale = 5
     # Read in data to pandas
-    blocks = pd.read_csv('/home/carterrhea/Documents/CAM-proj/Clean/'+id+'_blocks.csv')
-    links = pd.read_csv('/home/carterrhea/Documents/CAM-proj/Clean/'+id+'_links.csv')
+    blocks = pd.read_csv('/home/carterrhea/Dropbox/APLS-CAM-Proposal/DataFinal//Clean/'+id+'_blocks.csv')
+    links = pd.read_csv('/home/carterrhea/Dropbox/APLS-CAM-Proposal/DataFinal//Clean/'+id+'_links.csv')
     if blocks.isnull().values.any():
         # Create Background
         x_size = int(blocks['y_pos'].max())
@@ -37,11 +37,11 @@ def data_to_plot(id):
         # dsize
         dsize = (width, height)
         image = cv.resize(image, dsize)
-        cv.imwrite('/home/carterrhea/Desktop/Plots/CAM_'+id+'.png', image)
+        cv.imwrite('/home/carterrhea/Dropbox/APLS-CAM-Proposal/DataFinal/Plots/CAM_'+id+'.png', image)
 
 
-for filename in os.listdir('/home/carterrhea/Documents/CAM-proj/Clean'):  # Step through files
-    if filename.endswith('_blocks.csv'):
+for filename in os.listdir('/home/carterrhea/Dropbox/APLS-CAM-Proposal/DataFinal/Clean'):  # Step through files
+    if filename.endswith('blocks.csv'):
         cam_name = filename.split("_")[0]+'_'+filename.split("_")[1]
         try:
             data_to_plot(cam_name)
