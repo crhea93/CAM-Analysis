@@ -11,7 +11,7 @@ Calculate summary statistics and individual statistics. This will result in the 
 
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
 
 
 .. automodule:: Summary_Stats
